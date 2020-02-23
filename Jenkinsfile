@@ -14,7 +14,7 @@ pipeline {
             }
             steps {
                 script {
-                    app = docker.build("zoran-petreski/train")
+                    app = docker.build("zpdockerhub01/train-scheduler")
                     app.inside {
                         sh 'echo $(curl localhost:8080)'
                     }
@@ -27,7 +27,7 @@ pipeline {
             }
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'zpdockerhub01') {
+                    docker.withRegistry('https://registry.hub.docker.com', 'docker_hub_login') {
                         app.push("${env.BUILD_NUMBER}")
                         app.push("latest")
                     }
